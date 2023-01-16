@@ -1,12 +1,14 @@
 <template>
 <Navbar />
+<Pagination :allPages="allPages" :page="page"/>
   <div class="container_movies my-5">
     <div class="movie" v-for="movie in movies" :key="movie.id">
       <Card :movie="movie"/>
     </div>
   </div>
 
-  <Pagination :allPages="allPages" :page="page" @pagination="pagination"/>
+  <Pagination :allPages="allPages" :page="page"/>
+  <button type="button" v-show="page == undefined" @click="$router.push({name: 'PageMovies', params: {page: 2}})" class="text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Ver mais Filmes</button>
 </template>
 
 <script>
@@ -19,7 +21,7 @@ export default {
   data() {
     let movies = []
 
-    let page = 1
+    let page = ''
     let allPages = -1
     return {
       movies,
@@ -33,14 +35,17 @@ export default {
     Pagination
 },
   created: function() {
-    this.getMovies()
-  },
-  watch: {
-    page(newPage, oldPage) {
-      if(newPage != oldPage) {
-        this.getMovies()
+    this.$watch(
+      () => this.$route.params.page,
+      (toParams, previousParams) => {
+        if(toParams != previousParams) {
+          this.page = toParams
+          this.getMovies()
+        }
       }
-    }
+    )
+    this.page = this.$route.params.page
+    this.getMovies()
   },
   name: 'HomeView',
   methods: {
@@ -53,9 +58,6 @@ export default {
         }).catch(err => {
           console.log(err)
         });
-    },
-    pagination(result) {
-      this.page = result.page
     }
   }
 }

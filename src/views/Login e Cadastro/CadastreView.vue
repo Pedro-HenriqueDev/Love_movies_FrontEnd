@@ -1,6 +1,6 @@
 <template>
     
-    <div class="container-login">
+    <div class="container-cadastre">
 <div class="form mt-3 p-4 bg-white border border-gray-200 rounded-lg shadow-md sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
     <form class="space-y-6" action="#">
         <h5 class="text-xl font-medium text-gray-900 dark:text-white"><router-link to="/"><img class="w-8" src="../../assets/botao-voltar.png" alt=""></router-link> Cadastre</h5>
@@ -40,13 +40,13 @@ export default {
 </script>
 
 <style scoped>
-.container-login {
+.container-cadastre {
     display: flex;
     justify-content: center;
     height: 100vh;
 }
 .form {
-    height: 95%;
+    height: 520px;
     width: 40%;
 }
 </style>
