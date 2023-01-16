@@ -3,12 +3,13 @@ import HomeView from '../views/HomeView.vue'
 import LoginView from '../views/Login e Cadastro/LoginView.vue'
 import CadastreView from '../views/Login e Cadastro/CadastreView.vue'
 import MoviesView from '../views/MoviesView.vue'
+import HomePage from '../views/HomePage.vue'
 
 const routes = [
   {
     path: '/',
     name: 'home',
-    component: HomeView
+    component: HomePage
   },
   {
     path: '/movies/:page',
