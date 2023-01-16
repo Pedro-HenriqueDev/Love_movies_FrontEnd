@@ -11,6 +11,11 @@ const routes = [
     component: HomeView
   },
   {
+    path: '/movies/:page',
+    name: 'PageMovies',
+    component: HomeView
+  },
+  {
     path: '/login',
     name: 'login',
     component: LoginView
