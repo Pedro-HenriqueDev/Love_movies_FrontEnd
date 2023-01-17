@@ -4,14 +4,17 @@ import LoginView from '../views/Login e Cadastro/LoginView.vue'
 import CadastreView from '../views/Login e Cadastro/CadastreView.vue'
 import MoviesView from '../views/MoviesView.vue'
 import HomePage from '../views/HomePage.vue'
-import { tokenAuth } from '@/middleware/auth'
-
+import { tokenAuth, tokenAuthHome, tokenAuthParam } from '@/middleware/auth'
+import AccountedCreate from '@/views/Login e Cadastro/AccountedCreateView.vue'
+import RecoveryPassView from '@/views/Login e Cadastro/RecoveryPassView.vue'
+import NewPassView from '@/views/Login e Cadastro/NewPasswordView.vue'
 
 const routes = [
   {
     path: '/',
     name: 'home',
-    component: HomePage
+    component: HomePage,
+    beforeEnter: tokenAuthHome
   },
   {
     path: '/movies/:page',
@@ -22,17 +25,38 @@ const routes = [
   {
     path: '/login',
     name: 'login',
-    component: LoginView
+    component: LoginView,
+    beforeEnter: tokenAuthHome
   },
   {
     path: '/cadastre',
     name: 'Cadastre',
-    component: CadastreView
+    component: CadastreView,
+    beforeEnter: tokenAuthHome
   },
   {
     path: '/movie/:id',
     name: 'Movie',
-    component: MoviesView
+    component: MoviesView,
+    beforeEnter: tokenAuth
+  },
+  {
+    path: '/accountcreated',
+    name: 'AccountedCreated',
+    component: AccountedCreate,
+    beforeEnter: tokenAuthHome
+  },
+  {
+    path: '/recoverypass',
+    name: 'RecoveryPass',
+    component: RecoveryPassView,
+    beforeEnter: tokenAuthHome
+  },
+  {
+    path: '/newpass/:token',
+    name: 'NewPass',
+    component: NewPassView,
+    beforeEnter: tokenAuthParam
   }
 ]
 

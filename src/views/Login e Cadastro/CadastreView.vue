@@ -87,19 +87,17 @@ export default {
                 email: this.email,
                 password: this.password
             }
-            if(this.passConfirm()) {
+            if(!this.passConfirm()) {
+                this.loading = false
+                this.showMessage(true, true, "Senhas nao conferem")
                 return;
             }
             axios.post(process.env.VUE_APP_URL_APIUSER + "users",user).then((res) => {
                 this.loading = false
-                this.toast.message = "Um email de verificaçao foi enviado para o seu email"
-                this.toast.Error = false
-                this.toast.show = true
+                this.showMessage(true, true, "Um email de verificaçao foi enviado para o seu email")
             }).catch((err) => {
                 this.loading = false
-                this.toast.message = err.response.data.message
-                this.toast.Error = true
-                this.toast.show = true
+                this.showMessage(true, true, err.response.data.message)
                 console.log(err);
                 
             });
@@ -109,13 +107,14 @@ export default {
         },
         passConfirm() {
             if(this.password != this.passwordConfirm) {
-                this.loading = false
-                this.toast.message = "Senhas nao conferem"
-                this.toast.Error = true
-                this.toast.show = true
-                return true
+                return false
             }
-            return false
+            return true
+        },
+        showMessage(show, Error, message) {
+            this.toast.message = message
+            this.toast.Error = Error
+            this.toast.show = show
         }
     }
 }

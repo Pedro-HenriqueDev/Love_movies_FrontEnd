@@ -3,7 +3,7 @@
 <Pagination :allPages="allPages" :page="page"/>
   <div class="container_movies my-5">
     <div class="movie" v-for="movie in movies" :key="movie.id">
-      <Card :movie="movie"/>
+      <Card :movie="movie" :loading="loading"/>
     </div>
   </div>
 
@@ -26,7 +26,8 @@ export default {
     return {
       movies,
       page,
-      allPages
+      allPages,
+      loading: false
     }
   },
   components: {
@@ -50,10 +51,13 @@ export default {
   name: 'HomeView',
   methods: {
     getMovies() {
+      this.loading = true
         axios.get(process.env.VUE_APP_URL + "popular" + process.env.VUE_APP_KEY + "&language=pt-BR" + "&page=" + this.page).then(res => {
+          this.loading = false
           this.allPages = res.data.total_pages
           this.movies = res.data.results
         }).catch(err => {
+          this.loading = false
           console.log(err)
         });
     }
