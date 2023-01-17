@@ -78,12 +78,11 @@ export default {
             
             axios.post(process.env.VUE_APP_URL_APIUSER + "login",user).then((res) => {
                 this.loading = false
-                console.log(res)
                 this.saveToken(res.data.token)
                 this.$router.push("/movies/1")
             }).catch((err) => {
                 this.loading = false
-                this.showMessage(true, true, "erro")
+                this.showMessage(true, true, err.response.data.message)
                 console.log(err);
                 
             });

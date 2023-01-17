@@ -94,7 +94,7 @@ export default {
             }
             axios.post(process.env.VUE_APP_URL_APIUSER + "users",user).then((res) => {
                 this.loading = false
-                this.showMessage(true, true, "Um email de verificaçao foi enviado para o seu email")
+                this.showMessage(true, false, "Um email de verificaçao foi enviado para o seu email")
             }).catch((err) => {
                 this.loading = false
                 this.showMessage(true, true, err.response.data.message)
