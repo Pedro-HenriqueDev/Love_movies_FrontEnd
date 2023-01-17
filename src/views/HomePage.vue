@@ -1,6 +1,5 @@
 <template>
     <div class="dark:bg-gray-900 h-screen">
-    <Navbar/>
 
     <main class="main flex-col sm:flex-row dark:bg-gray-900 pt-10">
         <div class="md:w-1/2 sm:w-full flex justify-center">

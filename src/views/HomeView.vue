@@ -51,8 +51,6 @@ export default {
   methods: {
     getMovies() {
         axios.get(process.env.VUE_APP_URL + "popular" + process.env.VUE_APP_KEY + "&language=pt-BR" + "&page=" + this.page).then(res => {
-          console.log(this.page)
-          console.log(res.data)
           this.allPages = res.data.total_pages
           this.movies = res.data.results
         }).catch(err => {
