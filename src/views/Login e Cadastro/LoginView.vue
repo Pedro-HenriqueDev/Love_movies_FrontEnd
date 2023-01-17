@@ -17,11 +17,11 @@
         <div class="flex items-start">
             <div class="flex items-start">
                 <div class="flex items-center h-5">
-                    <input id="remember" type="checkbox" value="" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800" required>
+                    <input v-model="remember" type="checkbox" value="" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800" required>
                 </div>
                 <label for="remember" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Remember me</label>
             </div>
-            <a href="#" class="ml-auto text-sm text-blue-700 hover:underline dark:text-blue-500">Lost Password?</a>
+            <router-link to="/recoverypass" class="ml-auto text-sm text-blue-700 hover:underline dark:text-blue-500">Lost Password?</router-link>
         </div>
         <button @click="login()" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
             <div v-if="!loading">
@@ -61,7 +61,8 @@ export default {
             loading: false,
             toast,
             email: '',
-            password: ''
+            password: '',
+            remember: false
         }
     },
     components: {
@@ -74,16 +75,14 @@ export default {
                 email: this.email,
                 password: this.password
             }
+            console.log(this.remember)
             axios.post(process.env.VUE_APP_URL_APIUSER + "login",user).then((res) => {
                 this.loading = false
                 this.saveToken(res.data.token)
                 this.$router.push("/movies/1")
             }).catch((err) => {
                 this.loading = false
-                this.loading = false
-                this.toast.message = err.response.data.message
-                this.toast.Error = true
-                this.toast.show = true
+                this.showMessage(true, true, err.response.data.message)
                 console.log(err);
                 
             });
@@ -94,9 +93,21 @@ export default {
         saveToken(valor) {
             var validade = "";
             var date = new Date();
-            date.setTime(date.getTime() + (7*24*60*60*1000));
-            validade = "; expires=" + date.toUTCString();
+
+            if(this.remember == true) {
+                date.setTime(date.getTime() + (7*24*60*60*1000));
+                validade = "; expires=" + date.toUTCString();
+                document.cookie = "token" + "=" + (valor || "")  + validade + "; path=/";
+                return;
+            }
+
+            validade = "; expires=";
             document.cookie = "token" + "=" + (valor || "")  + validade + "; path=/";
+        },
+        showMessage(show, Error, message) {
+            this.toast.message = message
+            this.toast.Error = Error
+            this.toast.show = show
         }
     }
 }
