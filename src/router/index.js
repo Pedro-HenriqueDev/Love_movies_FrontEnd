@@ -4,6 +4,8 @@ import LoginView from '../views/Login e Cadastro/LoginView.vue'
 import CadastreView from '../views/Login e Cadastro/CadastreView.vue'
 import MoviesView from '../views/MoviesView.vue'
 import HomePage from '../views/HomePage.vue'
+import { tokenAuth } from '@/middleware/auth'
+
 
 const routes = [
   {
@@ -14,7 +16,8 @@ const routes = [
   {
     path: '/movies/:page',
     name: 'PageMovies',
-    component: HomeView
+    component: HomeView,
+    beforeEnter: tokenAuth
   },
   {
     path: '/login',

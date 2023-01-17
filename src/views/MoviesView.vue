@@ -58,8 +58,6 @@ export default {
                 this.movie = res.data
                 this.genres = res.data.genres
                 this.starsFormarter()
-                console.log(this.stars)
-                console.log(res.data)
             }).catch((err) => {
                 console.log(err)
             })
