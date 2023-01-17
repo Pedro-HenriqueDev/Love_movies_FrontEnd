@@ -41,7 +41,7 @@ const routes = [
     beforeEnter: tokenAuth
   },
   {
-    path: '/accountcreated',
+    path: '/accountcreated/:token',
     name: 'AccountedCreated',
     component: AccountedCreate,
     beforeEnter: tokenAuthHome
