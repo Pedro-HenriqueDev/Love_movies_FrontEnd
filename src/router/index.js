@@ -43,8 +43,7 @@ const routes = [
   {
     path: '/accountcreated/:token',
     name: 'AccountedCreated',
-    component: AccountedCreate,
-    beforeEnter: tokenAuthHome
+    component: AccountedCreate
   },
   {
     path: '/recoverypass',

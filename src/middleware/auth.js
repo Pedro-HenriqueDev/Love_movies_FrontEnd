@@ -38,7 +38,7 @@ export const tokenAuthHome = function (to, from, next) {
     })
 }
 export const tokenAuthParam = function (to, from, next) {
-    let token = to.params.token
+    let token = String(to.params.token)
 
     let header = {
         headers: {
@@ -51,6 +51,7 @@ export const tokenAuthParam = function (to, from, next) {
             next()
         }
     }).catch(err => {
+        console.log(err)
         next("/login")
     })
 }
