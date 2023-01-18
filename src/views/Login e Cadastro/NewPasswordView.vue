@@ -51,12 +51,14 @@ export default {
     methods: {
         sendPass() {
             this.loading = true
+            let token = String(this.$route.params.token)
+
             if(this.password == "") {
                 this.loading = false
                 this.showMessage(true, true, "Password field is required")
                 return;
             }
-            axios.post(process.env.VUE_APP_URL_APIUSER + 'recoverpassword/' + this.$route.params.token,{password: this.password}).then((res) => {
+            axios.post(process.env.VUE_APP_URL_APIUSER + 'recoverpassword/' + token,{password: this.password}).then((res) => {
                 this.loading = false
                 this.$router.push("/login")
             }).catch((err) => {
