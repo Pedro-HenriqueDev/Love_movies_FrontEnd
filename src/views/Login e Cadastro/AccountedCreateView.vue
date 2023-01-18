@@ -44,6 +44,7 @@ export default {
                 if(res.status == 201) {
                     this.msg = res.data
                     this.loading = false
+                    return;
                 }
                 this.msg = "Error"
                 this.loading = false
