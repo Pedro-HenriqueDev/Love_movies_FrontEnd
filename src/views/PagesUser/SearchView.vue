@@ -105,6 +105,7 @@ export default {
           this.loading = false
           this.allPages = res.data.total_pages
           this.movies = res.data.results
+          console.log(res.data.results)
         }).catch(err => {
           this.loading = false
           console.log(err)
