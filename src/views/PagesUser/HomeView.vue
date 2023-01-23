@@ -66,7 +66,7 @@ export default {
   methods: {
     getMovies() {
       this.loading = true
-        axios.get(process.env.VUE_APP_URL + "popular" + process.env.VUE_APP_KEY + "&language=pt-BR" + "&page=" + this.page).then(res => {
+        axios.get(process.env.VUE_APP_URL + "popular" + process.env.VUE_APP_KEY + "&language=pt-BR" + "&page=" + this.page + "&include_adult=false").then(res => {
           this.loading = false
           this.allPages = res.data.total_pages
           this.movies = res.data.results
