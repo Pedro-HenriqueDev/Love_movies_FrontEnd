@@ -15,7 +15,10 @@
           <router-link to="/favorites/1" class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Favoritos</router-link>
         </li>
         <li>
-          <a href="#" class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"><img class="w-10 h-10 rounded-full" src="../assets/profile-picture-5.jpg" alt="Rounded avatar"></a>
+          <button @click="showUserModal" class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"><img class="w-10 h-10 rounded-full" src="../assets/profile-picture-5.jpg" alt="Rounded avatar">
+
+          </button>
+          <modalUser :showModal="modalShow" @close="closeModal"/>
         </li>
         
       </ul>
@@ -26,8 +29,26 @@
 </template>
 
 <script>
+import modalUser from "./modalUser.vue"
+
 export default {
-    name: "Navbar"
+    data() {
+      return {
+        modalShow: false
+      }
+    },
+    name: "Navbar",
+    components: {
+      modalUser
+    },
+    methods: {
+      showUserModal() {
+        this.modalShow = true
+      },
+      closeModal(result) {
+        this.modalShow = result
+      }
+    }
 }
 </script>
 
