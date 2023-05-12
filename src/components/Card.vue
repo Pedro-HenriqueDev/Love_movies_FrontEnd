@@ -17,14 +17,7 @@
             </router-link>
             <div class="flex items-end justify-between">
                 <span class="bg-blue-100 h-5 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ml-3">{{movie.vote_average}}</span>
-                <div class="text-white font-medium rounded-lg text-sm px-5 text-center">
-                    <div v-if="movieLoved == loved">
-                        <img class="w-8 h-8" @click="love(movie.id, true)" src="../assets/coracaored.png" alt="">
-                    </div>
-                    <div v-else>
-                        <img class="w-8 h-8" @click="love(movie.id, false)" src="../assets/bordcoracao.png" alt="">
-                    </div>
-                </div>
+                <HeartFavoritesVue :movieLoved="movieLoved" :movieId="movie.id" :pageFavorite="pageFavorite" @loved="movieErased" />
             </div>
             
         </div>
@@ -43,6 +36,7 @@
 
 <script>
 import axios from "axios"
+import HeartFavoritesVue from './HeartFavorites.vue'
 
 export default {
     data() {
@@ -50,6 +44,9 @@ export default {
             loved: true,
             erased: this.pageFavorite? false : undefined
         }
+    },
+    components: {
+        HeartFavoritesVue
     },
     props: {
         movie: Object,
@@ -67,36 +64,9 @@ export default {
             }
             return text
         },
-        love(idMovie, heart) {
-            let token = document.cookie.split("=")
-            let headers = {
-                        headers: {
-                            Authorization: `Bearer ${token[1]}`
-                    }
-                }
-            if(!heart) {
-
-                axios.post(process.env.VUE_APP_URL_APIUSER + "relations/movies",{idMovie},headers).then(res => {})
-                .catch(err => {
-                    console.log(err)
-                })
-
-                this.loved = this.movieLoved
-                this.erased = this.pageFavorite? false : undefined
-                return
-            } else {
-
-                axios.delete(process.env.VUE_APP_URL_APIUSER + "relations/movies",{
-                    data: {idMovie},
-                    headers: {Authorization: `Bearer ${token[1]}`}
-                }).catch(err => {
-                    console.log(err)
-                })
-
-                this.loved = undefined
-                this.erased = this.pageFavorite? true : undefined
-                return
-            }
+        movieErased(loved) {
+            console.log(loved)
+            this.erased = loved
         }
     }
 }

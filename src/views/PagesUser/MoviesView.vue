@@ -1,10 +1,18 @@
 <template>
     <div class="container-init bg-gray-800">
+
+        <div class="m-3 flex gap-3 absolute left-1 top-1">
+            <a class="cursor-pointer" @click="$router.back">
+                <img src="../../assets/de-volta.png" class="w-8 h-8">
+            </a>
+            <HeartFavorites class="cursor-pointer" :movieLoved="movieLoved" :movieId="movie.id" :pageFavorite="undefined" />
+        </div>
+
+
         <div v-if="!loading" class="container-infos bg-gray-800">
             <div class="w-1/2 mx-6">
                 <h1 class="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">{{movie.title}}<p class="mb-4 text-lg font-normal text-gray-500 dark:text-gray-400">{{formarterDate(movie.release_date)}}</p></h1>
                 <p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-30 dark:text-gray-400">{{movie.overview}}</p>
-
             <div class="container-genres">
                 <div v-for="genre in genres" :key="genre.id">
                     <div>
@@ -48,6 +56,7 @@
 <script>
 import axios from 'axios'
 import Modal from "@/components/Modal.vue"
+import HeartFavorites from '@/components/HeartFavorites.vue'
 
 export default {
 
@@ -59,19 +68,42 @@ export default {
         return {
             idMovie: String(this.$route.params.id),
             loading: false,
-            movie: '',
+            movie: {},
             genres: [],
             stars: [],
-            modal
+            modal,
+            movieLoved: undefined,
         }
     },
     created() {
        this.getMovie()
+       this.moviesLoved()
     },
     components: {
-        Modal
+        Modal,
+        HeartFavorites
     },
     methods: {
+        moviesLoved() {
+            let token = document.cookie.split("=")
+                let headers = {
+                headers: {
+                    Authorization: `Bearer ${token[1]}`
+                    }
+                }
+            
+            axios.get(process.env.VUE_APP_URL_APIUSER + "relations/allmovies", headers).then(res => {
+                let loved = res.data.findIndex(elem => elem.movie == this.idMovie)
+                
+                if(loved == -1) {
+                    this.movieLoved = false
+                } else {
+                    this.movieLoved = true
+                }
+            }).catch(err => {
+                console.log(err)
+            })
+        },
         getMovie() {
             this.loading = true
             axios.get(process.env.VUE_APP_URL + this.idMovie + process.env.VUE_APP_KEY+ "&language=pt-BR").then((res) => {
