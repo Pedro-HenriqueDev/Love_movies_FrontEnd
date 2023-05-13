@@ -1,19 +1,20 @@
-# lovemovie
+# Front-end do Site Love Movies!
 
-## Project setup
-```
-npm install
-```
+Neste projeto há algumas Views com funções simples consumindo uma api de Usuários e filmes.
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+## Features
 
-### Compiles and minifies for production
-```
-npm run build
-```
+### Usuários
+- Cadastro
+- Login / Logout
+- Recuperação de Senha
+- Exclusão de Usuário
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+<hr />
+
+### Filmes
+- Listagem de todos os filmes com api externa
+- Favoritar Filmes
+- Listagem de filmes favoritados pelos usuários
+- "Desfavoritar" filmes
+- View para detalhar informações sobre filme específico
