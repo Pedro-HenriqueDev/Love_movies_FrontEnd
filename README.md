@@ -18,3 +18,7 @@ Neste projeto há algumas Views com funções simples consumindo uma api de Usu�
 - Listagem de filmes favoritados pelos usuários
 - "Desfavoritar" filmes
 - View para detalhar informações sobre filme específico
+
+<p align="center">
+<img src="http://img.shields.io/static/v1?label=STATUS&message=EM%20DESENVOLVIMENTO&color=GREEN&style=for-the-badge"/>
+</p>
