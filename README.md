@@ -2,6 +2,8 @@
 
 Neste projeto há algumas Views com funções simples consumindo uma api de Usuários e filmes.
 
+OBS: Este projeto está atualmente sendo refatorado para Vue 3 com Composition API!
+     Refatoração 30% concluída
 ## Features
 
 ### Usuários
