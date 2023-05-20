@@ -1,4 +1,4 @@
-import { createRouter, createWebHashHistory } from 'vue-router'
+import { createRouter, createWebHashHistory, useRoute } from 'vue-router'
 import HomeView from '@/views/PagesUser/HomeView.vue'
 import LoginView from '@/views/Login e Cadastro/LoginView.vue'
 import CadastreView from '@/views/Login e Cadastro/CadastreView.vue'
@@ -33,7 +33,7 @@ const routes = [
     path: '/favorites/:page',
     name: 'FavoritesMovies',
     component: favoritesView,
-    beforeEnter: tokenAuth
+    beforeEnter: tokenAuth,
   },
   {
     path: '/login',
@@ -68,7 +68,6 @@ const routes = [
     beforeEnter: tokenAuthParam
   }
 ]
-
 const router = createRouter({
   history: createWebHashHistory(),
   routes
